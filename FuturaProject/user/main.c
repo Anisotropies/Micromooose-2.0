@@ -44,10 +44,10 @@ struct Coord {
 
 
 //CONSTANTS
-int32_t hasLeftWall = 800;
-int32_t hasRightWall = 1300;  
-int32_t hasFrontWallLeft = 872; 
-int32_t hasFrontWallRight = 1600; 
+int32_t hasLeftWall = 100;
+int32_t hasRightWall = 100;  
+int32_t hasFrontWallLeft = 200; 
+int32_t hasFrontWallRight = 60; 
 int32_t leftMiddleValue = 0;
 int32_t rightMiddleValue = 0;
 
@@ -987,7 +987,7 @@ int main(void) {
 
 	stop(1000);
 	
-	
+	/*
 	displayMatrix("CALB");
 	for (i = 0; i < 1000; i++) {
 		readSensor();
@@ -998,8 +998,10 @@ int main(void) {
 	rightMiddleValue /= 1000;
 	hasLeftWall = leftMiddleValue * 0.75;
 	hasRightWall = rightMiddleValue * 0.75;
+*/
 
-	if (1) {
+
+	if (0) {
 		mouseStarted = 1;
 		
 		while (1) {
@@ -1055,7 +1057,7 @@ int main(void) {
 		mouseStarted = 1;
 		
 		while (1) {		
-			
+			/*
 			//Set the direction to turn
 				if((DLSensor > hasLeftWall)) {
 					leftWall = true;
@@ -1158,7 +1160,7 @@ int main(void) {
 				
 				}
 
-			/*
+			*/
 			readSensor();
 			if((DLSensor > hasLeftWall && DRSensor > hasRightWall))//has both walls
 			{
@@ -1178,7 +1180,7 @@ int main(void) {
 			}		
 			delay_ms(500);
 			
-			*/
+			
 		}
 	}
 
