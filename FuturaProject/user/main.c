@@ -44,15 +44,15 @@ struct Coord {
 
 
 //CONSTANTS
-int32_t hasLeftWall = 100;
-int32_t hasRightWall = 100;  
-int32_t hasFrontWallLeft = 128; 
-int32_t hasFrontWallRight = 60; 
+int32_t hasLeftWall = 325;
+int32_t hasRightWall = 714;  
+int32_t hasFrontWallLeft = 200; 
+int32_t hasFrontWallRight = 200; 
 int32_t leftMiddleValue = 0;//1765;
 int32_t rightMiddleValue = 0;//98;
 
 double P = 0.01;
-double D = 0.01;
+double D = 0.09;
 int leftBaseSpeed = 100;
 int rightBaseSpeed = 100;
 volatile int left_enc;
@@ -736,8 +736,12 @@ void goForwardandStop(int time, int left_pwm_speed,int right_pwm_speed)
 }
 
 void forwardDistance(int distance, int left_speed, int right_speed, bool coast) {
-	int curEnc = left_enc;
-	while (left_enc - curEnc < distance) {
+	int curEnc = getLeftEncCount();
+	turning = 0;
+	while (getLeftEncCount() - curEnc < distance) {
+		left_enc = getLeftEncCount();
+		right_enc = getRightEncCount(); 
+		printf("Encoder counts left: %d\r\n",distance - getLeftEncCount() + curEnc); 
 		//displayMatrix("FWD");
 		targetLeft = left_speed;
 		targetRight = right_speed;
@@ -748,6 +752,7 @@ void forwardDistance(int distance, int left_speed, int right_speed, bool coast) 
 		targetLeft = 0;
 		targetRight = 0;
 	}
+	turning = 1;
 }
 
 void turnRight(int time, int left_pwm_speed,int right_pwm_speed) 
@@ -772,28 +777,32 @@ void turnLeft(int time, int left_pwm_speed,int right_pwm_speed)
 	delay_ms(time);
 }
 
-void turnDegrees(int degrees, int direction) {
+void turnDegrees(int degrees, int direction, int speed) {
 	int curAng;
 	curAng = angle;
+	turning = 1;
 	if(direction == 1)
 	{
 		while (angle-curAng < degrees) {
+			displayMatrix("LEFT");
 			printf("angle: %d\tcurAngle: %d\tangle-curAngle: %d\r\n", angle, curAng, angle-curAng); 
-			targetLeft = -50*direction;
-			targetRight = 50*direction;
+			targetLeft = -speed*direction;
+			targetRight = speed*direction;
 		}
 	}
 	else if(direction == -1)
 	{
 			while (angle-curAng > degrees) {
+			displayMatrix("RIGT");
 			printf("angle: %d\tcurAngle: %d\tangle-curAngle: %d\r\n", angle, curAng, angle-curAng); 
-			targetLeft = -50*direction;
-			targetRight = 50*direction;
+			targetLeft = -speed*direction;
+			targetRight = speed*direction;
 		}
 	}
 
 	targetLeft = 0;
 	targetRight = 0;
+	
 
 }
 
@@ -987,143 +996,87 @@ int main(void) {
 
 	stop(1000);
 	
-/*
+
 	displayMatrix("CALB");
 	for (i = 0; i < 1000; i++) {
 		readSensor();
 		leftMiddleValue += DLSensor;
 		rightMiddleValue += DRSensor;
-		//printf("Current val L: %d, R: %d\tLSum: %d, RSum: %d\r\n", DLSensor, DRSensor, leftMiddleValue, rightMiddleValue);
-		//delay_ms(1000);
 	}
 	leftMiddleValue /= 1000;
 	rightMiddleValue /= 1000;
-	hasLeftWall = leftMiddleValue * 0.75;
-	hasRightWall = rightMiddleValue * 0.75;
 
-*/
+	hasLeftWall = leftMiddleValue * 0.65;
+	hasRightWall = rightMiddleValue * 0.65;
+	
+	displayMatrix("REDY");
 
-	if (1) {
-		mouseStarted = 1;
-		
-		while (1) {
-			//forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
-			stop(1000);
-			
-			printf("LF %d RF %d DL %d DR %d aSpeed %d angle %d voltage %d lenc %d renc %d\r\n", LFSensor, RFSensor, DLSensor, DRSensor, aSpeed, angle, voltage, getLeftEncCount(), getRightEncCount());
-		}
-		
-		
+	displayMatrix("ELSE");
+	mouseStarted = 1;
+while(1) {	
+	while (RFSensor < hasFrontWallLeft || LFSensor < hasFrontWallRight) {		
 		/*
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleLeft(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleLeft(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleRight(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleRight(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleLeft(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleRight(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnRightAngleLeft(runSpeed, runSpeed);
-		stop(1000);
-		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-		stop(1000);
-		turnDegrees(-15000, -1);//turn right
-		stop(10000);
-		
-		*/
-	}
-	else {
-		
-		mouseStarted = 1;
-		
-		while (1) {		
-			/*
-			//Set the direction to turn
-				if((DLSensor > hasLeftWall)) {
-					leftWall = true;
-				} else {
-					leftWall = false;
-				}
+		//Set the direction to turn
+		if((DLSensor > hasLeftWall)) {
+			leftWall = true;
+		} else {
+			leftWall = false;
+		}
 				
-				if((DRSensor > hasRightWall)) {
-					rightWall = true;
-				} else {
-					rightWall = false;
-				}
+		if((DRSensor > hasRightWall)) {
+			rightWall = true;
+		} else {
+			rightWall = false;
+		}
 				
-				if((LFSensor > hasFrontWallLeft || RFSensor > hasFrontWallRight)) {
-					frontWall = true;
-				} else {
-					frontWall = false;
-				}
+		if((LFSensor > hasFrontWallLeft || RFSensor > hasFrontWallRight)) {
+			frontWall = true;
+		} else {
+			frontWall = false;
+		}
 				
-				switch (nextMovement()) {
-					case MoveForward: 
-						switch(heading) {
-							case NORTH:
-							y++;
-							break;
-						case SOUTH:
-							y--;
-							break;
-						case EAST:
-							x++;
-							break;
-						case WEST:
-							x--;
-							break;
-						case INVALID:
-						default:
-							break;
-				}
+		switch (nextMovement()) {
+			case MoveForward: 
+				switch(heading) {
+					case NORTH:
+					y++;
+					break;
+				case SOUTH:
+					y--;
+					break;
+				case EAST:
+					x++;
+					break;
+				case WEST:
+					x--;
+					break;
+				case INVALID:
+				default:
+					break;
+		}
 						
-				forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
+		forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
+							
+		heading = clockwise(heading);
+		switch(heading) {
+			case NORTH:
+				y++;
+				break;
+			case SOUTH:
+				y--;
+				break;
+			case EAST:
+				x++;
+				break;
+			case WEST:
+				x--;
+				break;
+			case INVALID:
+				default:
+				break;
+		}	
 						
-						break;
-					case TurnClockwise:
-						
-					heading = clockwise(heading);
-						switch(heading) {
-							case NORTH:
-							y++;
-							break;
-						case SOUTH:
-							y--;
-							break;
-						case EAST:
-							x++;
-							break;
-						case WEST:
-							x--;
-							break;
-						case INVALID:
-						default:
-							break;
-						}	
-						
-						turnRightAngleLeft(runSpeed, runSpeed);
+		turnRightAngleLeft(runSpeed, runSpeed);
 						
 
 						break;
@@ -1163,10 +1116,9 @@ int main(void) {
 				}
 
 			*/
-			readSensor();
-			mouseStarted = 0;
-			printf("LSensor: %d/%d\tRSensor: %d/%d\r\n", DLSensor, hasLeftWall, DRSensor, hasRightWall);
-			if((DLSensor > hasLeftWall && DRSensor > hasRightWall))//has both walls
+			//readSensor();
+			printf("HI\r\n");
+			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
 			{
 				displayMatrix("BOTH");
 			}        
@@ -1183,12 +1135,34 @@ int main(void) {
 			{
 				displayMatrix("NONE");
 			}		
-			//forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-			delay_ms(500);
+			printf("LeftFront: %d\tRightFront: %d\r\n",LFSensor, RFSensor);
+			//delay_ms(1000);
+			//while (LFSensor > hasFrontWallLeft && RFSensor > hasFrontWallRight) {
+			printf("About to go forward\r\n");
+			forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
+			printf("finished going forward\r\n");
+			//}
+			//stop(10000);
+			//delay_ms(500);
 			
 			
 		}
-	}
 
+		
+		printf("found wall. out of while loop\r\n");
+		displayMatrix("DONE");
+		targetLeft = 0;
+		targetRight = 0;
+		
+		stop(1000);
+		turnDegrees(-14000, -1, 50);
+		stop(1000);
+		turnDegrees(-14000, -1, 50);
+		stop(1000);
+	}
+		
+		while(1) {
+			delay_ms(1);
+		}
 }
 
