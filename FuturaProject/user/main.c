@@ -1,6 +1,6 @@
 #include "stm32f4xx.h"
 #include "delay.h"
-#include "led.h"
+#include "led.h" 
 #include "button.h"
 #include <stdio.h>
 #include "usart.h"
@@ -46,8 +46,8 @@ struct Coord {
 //CONSTANTS
 int32_t hasLeftWall = 325;
 int32_t hasRightWall = 714;  
-int32_t hasFrontWallLeft = 180; 
-int32_t hasFrontWallRight = 180; 
+int32_t hasFrontWallLeft = 220; 
+int32_t hasFrontWallRight = 220; 
 int32_t leftMiddleValue = 0;//1765;
 int32_t rightMiddleValue = 0;//98;
 
@@ -576,27 +576,27 @@ int nextMovement() {
 		 
 		 
 		//if (!frontWall) {
-		if (!frontWall && c_array[x][y].m_distance > c_array[frontX][frontY].m_distance)
+		if (!(isWallBetween(c_array[x][y], c_array[frontX][frontY])) && c_array[x][y].m_distance > c_array[frontX][frontY].m_distance)
 		{
 			printf("Moving forward\r\n");
 				return MoveForward;
 		}
 		 
-		else if (!rightWall && c_array[x][y].m_distance > c_array[rightX][rightY].m_distance)
+		else if (!(isWallBetween(c_array[x][y], c_array[rightX][rightY])) && c_array[x][y].m_distance > c_array[rightX][rightY].m_distance)
 		{
 			printf("Turning right\r\n");
 			heading = clockwise(heading);
 			return TurnClockwise;	
 		}
 		 
-		else if (!leftWall && c_array[x][y].m_distance > c_array[leftX][leftY].m_distance)
+		else if (!(isWallBetween(c_array[x][y], c_array[leftX][leftY])) && c_array[x][y].m_distance > c_array[leftX][leftY].m_distance)
 		{
 			printf("Turning left\r\n");
 			heading = counterClockwise(heading);
 			return TurnCounterClockwise;
 		}
 		 
-		else if (frontWall && rightWall && leftWall)
+		else if (isWallBetween(c_array[x][y], c_array[frontX][frontY]) && isWallBetween(c_array[x][y], c_array[rightX][rightY]) && isWallBetween(c_array[x][y], c_array[leftX][leftY]))
 		{
 			printf("Turning around\r\n");
 				heading = opposite(heading);
@@ -865,6 +865,12 @@ int main(void) {
 while(1) {	
 	//while (RFSensor < hasFrontWallLeft || LFSensor < hasFrontWallRight) {		
 		
+	printf("X: %d\ Y: %d\r\n",x, y);
+	
+	
+	printf("hasRightWall: %d\RightSensorValue: %d\r\n",hasRightWall, DRSensor);
+	
+	
 		//Set the direction to turn
 		if((DLSensor > hasLeftWall)) {
 			leftWall = true;
@@ -965,10 +971,33 @@ while(1) {
 				
 				stop(100);
 				displayMatrix("PRNT");
+				/*Print out Manhattan Distances*/
 				for (i = 15; i >= 0; i--) {
 					for (j = 0; j < 16; j++) {
 						
 						printf("%d ", c_array[j][i].m_distance);
+					}
+					printf("\r\n");
+				}
+				/*Print out walls*/
+				for (i = 15; i >= 0; i--) {
+					for (j = 0; j < 16; j++) {
+						printf("*");
+						if (getH(j, i)) {
+							printf("_");
+						}
+						else {
+							printf(" ");
+						}
+						if (getV(j, i)) {
+							printf("|");
+						}
+						
+						if(i == y && j == x) {
+							printf("^");
+
+						}							
+						
 					}
 					printf("\r\n");
 				}

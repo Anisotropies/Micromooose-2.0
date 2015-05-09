@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\obj\micromouse_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\obj\micromouse_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat May 09 05:13:56 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat May 09 11:21:56 2015
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1102,7 +1102,8 @@ Global Symbols
 <P><STRONG><a name="[235]"></a>clearH</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, main.o(.text), UNUSED)
 
 <P><STRONG><a name="[ad]"></a>getH</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isWallBetween
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isWallBetween
 </UL>
 
 <P><STRONG><a name="[a6]"></a>clearAllH</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, main.o(.text), UNUSED)
@@ -1120,7 +1121,8 @@ Global Symbols
 <P><STRONG><a name="[236]"></a>clearV</STRONG> (Thumb, 28 bytes, Stack size 0 bytes, main.o(.text), UNUSED)
 
 <P><STRONG><a name="[ae]"></a>getV</STRONG> (Thumb, 36 bytes, Stack size 0 bytes, main.o(.text))
-<BR><BR>[Called By]<UL><LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isWallBetween
+<BR><BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[ac]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;isWallBetween
 </UL>
 
 <P><STRONG><a name="[aa]"></a>clearAllV</STRONG> (Thumb, 12 bytes, Stack size 8 bytes, main.o(.text), UNUSED)
@@ -1201,7 +1203,7 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nextMovement
 </UL>
 
-<P><STRONG><a name="[b5]"></a>nextMovement</STRONG> (Thumb, 1444 bytes, Stack size 56 bytes, main.o(.text))
+<P><STRONG><a name="[b5]"></a>nextMovement</STRONG> (Thumb, 1826 bytes, Stack size 56 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
  + In Cycle
 <LI>Call Chain = nextMovement &rArr;  nextMovement (Cycle)
@@ -1224,7 +1226,7 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nextMovement
 </UL>
 
-<P><STRONG><a name="[bf]"></a>PID</STRONG> (Thumb, 564 bytes, Stack size 32 bytes, main.o(.text))
+<P><STRONG><a name="[bf]"></a>PID</STRONG> (Thumb, 414 bytes, Stack size 32 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 64<LI>Call Chain = PID &rArr; __aeabi_dmul
 </UL>
 <BR>[Calls]<UL><LI><a href="#[c6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;setRightPwm
@@ -1281,7 +1283,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[83]"></a>main</STRONG> (Thumb, 908 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[83]"></a>main</STRONG> (Thumb, 1002 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = main &rArr; nextMovement &rArr;  nextMovement (Cycle)
 </UL>
@@ -1304,6 +1306,8 @@ Global Symbols
 <LI><a href="#[ba]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;counterClockwise
 <LI><a href="#[b9]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;clockwise
 <LI><a href="#[bb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;opposite
+<LI><a href="#[ae]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getV
+<LI><a href="#[ad]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;getH
 <LI><a href="#[c1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_dmul
 <LI><a href="#[c0]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_i2d
 <LI><a href="#[c4]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;__aeabi_d2iz
