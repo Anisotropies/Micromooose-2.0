@@ -458,7 +458,7 @@ I (..\user_Libraries\inc\encoder.h)(0x554D357F)
 I (..\user_Libraries\inc\buzzer.h)(0x554D357F)
 I (..\user_Libraries\inc\main.h)(0x554D357F)
 I (..\user_Libraries\inc\sensor_Function.h)(0x554D357F)
-I (..\user_Libraries\inc\adc.h)(0x554D357F)
+I (..\user_Libraries\inc\adc.h)(0x554D9E9D)
 I (C:\Keil_v5\ARM\ARMCC\include\string.h)(0x5476E210)
 I (C:\Keil_v5\ARM\ARMCC\include\cstring)(0x5476E210)
 F (..\user\stm32f4xx_it.c)(0x554D357F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I..\ST_Libraries\inc -I..\ST_Libraries\src -I..\ST_Libraries\startup -I..\user -I..\obj -I..\project -I..\user_Libraries\inc -I..\user_Libraries\src -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\CMSIS-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\ST\STM32F4xx-D__UVISION_VERSION="513" -DUSE_STDPERIPH_DRIVER-o ..\obj\stm32f4xx_it.o --omf_browse ..\obj\stm32f4xx_it.crf --depend ..\obj\stm32f4xx_it.d)
@@ -512,7 +512,7 @@ F (..\user_Libraries\inc\SPI.h)(0x554D357F)()
 F (..\user_Libraries\inc\pwm.h)(0x554D357F)()
 F (..\user_Libraries\inc\buzzer.h)(0x554D357F)()
 F (..\user_Libraries\inc\encoder.h)(0x554D357F)()
-F (..\user_Libraries\inc\adc.h)(0x554D357F)()
+F (..\user_Libraries\inc\adc.h)(0x554D9E9D)()
 F (..\user_Libraries\inc\sensor_Function.h)(0x554D357F)()
 F (..\user_Libraries\inc\main.h)(0x554D357F)()
 F (..\user_Libraries\src\delay.c)(0x554D357F)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I..\ST_Libraries\inc -I..\ST_Libraries\src -I..\ST_Libraries\startup -I..\user -I..\obj -I..\project -I..\user_Libraries\inc -I..\user_Libraries\src -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\CMSIS-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\ST\STM32F4xx-D__UVISION_VERSION="513" -DUSE_STDPERIPH_DRIVER-o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
@@ -552,7 +552,7 @@ I (..\ST_Libraries\inc\stm32f4xx_wwdg.h)(0x554D357E)
 I (..\ST_Libraries\inc\misc.h)(0x554D357E)
 I (..\user_Libraries\inc\delay.h)(0x554D357F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5476E210)
-F (..\user_Libraries\src\led.c)(0x554D96C8)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I..\ST_Libraries\inc -I..\ST_Libraries\src -I..\ST_Libraries\startup -I..\user -I..\obj -I..\project -I..\user_Libraries\inc -I..\user_Libraries\src -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\CMSIS-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\ST\STM32F4xx-D__UVISION_VERSION="513" -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
+F (..\user_Libraries\src\led.c)(0x554D9D5E)(-c --cpu Cortex-M4.fp -D__EVAL -g -O0 --apcs=interwork -I..\ST_Libraries\inc -I..\ST_Libraries\src -I..\ST_Libraries\startup -I..\user -I..\obj -I..\project -I..\user_Libraries\inc -I..\user_Libraries\src -IC:\Keil\ARM\RV31\INC -IC:\Keil\ARM\CMSIS\Include -IC:\Keil\ARM\CMSIS-I C:\Keil_v5\ARM\RV31\INC-I C:\Keil_v5\ARM\CMSIS\Include-I C:\Keil_v5\ARM\Inc\ST\STM32F4xx-D__UVISION_VERSION="513" -DUSE_STDPERIPH_DRIVER-o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
 I (..\user_Libraries\inc\led.h)(0x554D357F)
 I (..\ST_Libraries\startup\stm32f4xx.h)(0x554D357E)
 I (C:\Keil_v5\ARM\CMSIS\Include\core_cm4.h)(0x53470C64)
@@ -925,7 +925,7 @@ I (..\ST_Libraries\inc\stm32f4xx_tim.h)(0x554D357E)
 I (..\ST_Libraries\inc\stm32f4xx_usart.h)(0x554D357E)
 I (..\ST_Libraries\inc\stm32f4xx_wwdg.h)(0x554D357E)
 I (..\ST_Libraries\inc\misc.h)(0x554D357E)
-I (..\user_Libraries\inc\adc.h)(0x554D357F)
+I (..\user_Libraries\inc\adc.h)(0x554D9E9D)
 I (..\user_Libraries\inc\delay.h)(0x554D357F)
 I (C:\Keil_v5\ARM\ARMCC\include\stdbool.h)(0x5476E210)
 I (..\user_Libraries\inc\pwm.h)(0x554D357F)
