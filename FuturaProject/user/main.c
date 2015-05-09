@@ -1135,7 +1135,6 @@ while(1) {
 			{
 				displayMatrix("NONE");
 			}		
-<<<<<<< HEAD
 			printf("LeftFront: %d\tRightFront: %d\r\n",LFSensor, RFSensor);
 			//delay_ms(1000);
 			//while (LFSensor > hasFrontWallLeft && RFSensor > hasFrontWallRight) {
@@ -1145,11 +1144,6 @@ while(1) {
 			//}
 			//stop(10000);
 			//delay_ms(500);
-=======
-			//forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
-			//COMMIT comment
-			delay_ms(500);
->>>>>>> origin/master
 			
 			
 		}
