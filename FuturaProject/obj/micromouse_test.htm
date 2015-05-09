@@ -3,7 +3,7 @@
 <title>Static Call Graph - [..\obj\micromouse_test.axf]</title></head>
 <body><HR>
 <H1>Static Call Graph for image ..\obj\micromouse_test.axf</H1><HR>
-<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat May 09 05:03:08 2015
+<BR><P>#&#060CALLGRAPH&#062# ARM Linker, 5050106: Last Updated: Sat May 09 05:13:56 2015
 <BR><P>
 <H3>Maximum Stack Usage =        320 bytes + Unknown(Functions without stacksize, Cycles, Untraceable Function Pointers)</H3><H3>
 Call chain for Maximum Stack Depth:</H3>
@@ -1201,7 +1201,7 @@ Global Symbols
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nextMovement
 </UL>
 
-<P><STRONG><a name="[b5]"></a>nextMovement</STRONG> (Thumb, 1436 bytes, Stack size 56 bytes, main.o(.text))
+<P><STRONG><a name="[b5]"></a>nextMovement</STRONG> (Thumb, 1444 bytes, Stack size 56 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 200 + Unknown Stack Size
  + In Cycle
 <LI>Call Chain = nextMovement &rArr;  nextMovement (Cycle)
@@ -1251,16 +1251,13 @@ Global Symbols
 <P><STRONG><a name="[cb]"></a>turnDegrees</STRONG> (Thumb, 92 bytes, Stack size 12 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 12<LI>Call Chain = turnDegrees
 </UL>
-<BR>[Called By]<UL><LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forwardTurn
+<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
+<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forwardTurn
 </UL>
 
-<P><STRONG><a name="[ca]"></a>forwardTurn</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, main.o(.text))
-<BR><BR>[Stack]<UL><LI>Max Depth = 40<LI>Call Chain = forwardTurn &rArr; forwardDistance
-</UL>
-<BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnDegrees
+<P><STRONG><a name="[ca]"></a>forwardTurn</STRONG> (Thumb, 48 bytes, Stack size 16 bytes, main.o(.text), UNUSED)
+<BR><BR>[Calls]<UL><LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnDegrees
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forwardDistance
-</UL>
-<BR>[Called By]<UL><LI><a href="#[83]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;main
 </UL>
 
 <P><STRONG><a name="[cc]"></a>systick</STRONG> (Thumb, 44 bytes, Stack size 8 bytes, main.o(.text))
@@ -1284,7 +1281,7 @@ Global Symbols
 <BR><BR>[Called By]<UL><LI><a href="#[36]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;EXTI15_10_IRQHandler
 </UL>
 
-<P><STRONG><a name="[83]"></a>main</STRONG> (Thumb, 896 bytes, Stack size 16 bytes, main.o(.text))
+<P><STRONG><a name="[83]"></a>main</STRONG> (Thumb, 908 bytes, Stack size 16 bytes, main.o(.text))
 <BR><BR>[Stack]<UL><LI>Max Depth = 216 + Unknown Stack Size
 <LI>Call Chain = main &rArr; nextMovement &rArr;  nextMovement (Cycle)
 </UL>
@@ -1299,7 +1296,7 @@ Global Symbols
 <LI><a href="#[d1]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;LED_Configuration
 <LI><a href="#[d6]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;Encoder_Configration
 <LI><a href="#[d8]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;ADC_Config
-<LI><a href="#[ca]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forwardTurn
+<LI><a href="#[cb]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;turnDegrees
 <LI><a href="#[c7]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;forwardDistance
 <LI><a href="#[b5]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;nextMovement
 <LI><a href="#[b3]">&gt;&gt;</a>&nbsp;&nbsp;&nbsp;stop

@@ -46,8 +46,8 @@ struct Coord {
 //CONSTANTS
 int32_t hasLeftWall = 325;
 int32_t hasRightWall = 714;  
-int32_t hasFrontWallLeft = 200; 
-int32_t hasFrontWallRight = 200; 
+int32_t hasFrontWallLeft = 180; 
+int32_t hasFrontWallRight = 180; 
 int32_t leftMiddleValue = 0;//1765;
 int32_t rightMiddleValue = 0;//98;
 
@@ -464,21 +464,21 @@ int nextMovement() {
 		if (leftWall) {
 				if (heading == NORTH) {
 						if (x != 0){
-								setV(x - 1, y);
+								setV(x - 1, y+1);
 						}
 				}
 				else if (heading == SOUTH) {
-						setV(x, y);
+						setV(x, y-1);
 						 
 				}
 				else if (heading == WEST) {
 						if (y != 0){
-								setH(x, y - 1);
+								setH(x - 1, y - 1);
 						}
 						 
 				}
 				else if (heading == EAST) {
-						setH(x, y);
+						setH(x+1, y);
 				}
 		}
 		 
@@ -490,17 +490,17 @@ int nextMovement() {
 				}
 				else if (heading == SOUTH) {
 						if (x != 0){
-								setV(x - 1, y);
+								setV(x - 1, y+1);
 						}
 						 
 				}
 				else if (heading == WEST) {
-						setH(x, y);
+						setH(x-1, y-1);
 						 
 				}
 				else if (heading == EAST) {
 						if (y != 0){
-								setH(x, y - 1);
+								setH(x+1, y - 1);
 						}
 						 
 				}
@@ -511,26 +511,26 @@ int nextMovement() {
 		{
 				if (heading == NORTH)
 				{
-						setH(x, y);
+						setH(x, y+1);
 				}
 				else if (heading == SOUTH)
 				{
 						if (y != 0)
 						{
-								setH(x, y - 1);
+								setH(x, y - 2);
 						}
 				}
 				else if (heading == WEST)
 				{
 						if (x != 0)
 						{
-								setV(x - 1, y);
+								setV(x - 2, y);
 						}
 						 
 				}
 				else if (heading == EAST)
 				{
-						setV(x, y);
+						setV(x+1, y);
 				}
 		}
 		 
@@ -928,7 +928,7 @@ while(1) {
 							break;
 						}	
 					displayMatrix("RIGT");
-					forwardTurn(RIGHT, runSpeed);
+					turnDegrees(14000, RIGHT, 50);
 					break;
 					
 					case TurnCounterClockwise:
@@ -952,13 +952,13 @@ while(1) {
 						}	
 						
 						displayMatrix("LEFT");
-						forwardTurn(LEFT, runSpeed);
+						turnDegrees(14000, LEFT, 50);
 						break;
 
 					case TurnAround:
 						displayMatrix("BACK");
 						heading = opposite(heading);
-						forwardTurn(LEFT, runSpeed);
+						turnDegrees(28000, LEFT, 50);
 					
 						break; 
 				}
