@@ -46,10 +46,10 @@ struct Coord {
 //CONSTANTS
 int32_t hasLeftWall = 100;
 int32_t hasRightWall = 100;  
-int32_t hasFrontWallLeft = 200; 
+int32_t hasFrontWallLeft = 128; 
 int32_t hasFrontWallRight = 60; 
-int32_t leftMiddleValue = 0;
-int32_t rightMiddleValue = 0;
+int32_t leftMiddleValue = 0;//1765;
+int32_t rightMiddleValue = 0;//98;
 
 double P = 0.01;
 double D = 0.01;
@@ -738,7 +738,7 @@ void goForwardandStop(int time, int left_pwm_speed,int right_pwm_speed)
 void forwardDistance(int distance, int left_speed, int right_speed, bool coast) {
 	int curEnc = left_enc;
 	while (left_enc - curEnc < distance) {
-		displayMatrix("FWD");
+		//displayMatrix("FWD");
 		targetLeft = left_speed;
 		targetRight = right_speed;
 
@@ -971,7 +971,7 @@ void button2_interrupt(void) {
 
 int main(void) {
 
-	int runSpeed = 50;
+	int runSpeed = 100;
 	int i;
 	Systick_Configuration();
 	LED_Configuration();
@@ -987,21 +987,23 @@ int main(void) {
 
 	stop(1000);
 	
-	/*
+/*
 	displayMatrix("CALB");
 	for (i = 0; i < 1000; i++) {
 		readSensor();
 		leftMiddleValue += DLSensor;
 		rightMiddleValue += DRSensor;
+		//printf("Current val L: %d, R: %d\tLSum: %d, RSum: %d\r\n", DLSensor, DRSensor, leftMiddleValue, rightMiddleValue);
+		//delay_ms(1000);
 	}
 	leftMiddleValue /= 1000;
 	rightMiddleValue /= 1000;
 	hasLeftWall = leftMiddleValue * 0.75;
 	hasRightWall = rightMiddleValue * 0.75;
+
 */
 
-
-	if (0) {
+	if (1) {
 		mouseStarted = 1;
 		
 		while (1) {
@@ -1162,12 +1164,15 @@ int main(void) {
 
 			*/
 			readSensor();
+			mouseStarted = 0;
+			printf("LSensor: %d/%d\tRSensor: %d/%d\r\n", DLSensor, hasLeftWall, DRSensor, hasRightWall);
 			if((DLSensor > hasLeftWall && DRSensor > hasRightWall))//has both walls
 			{
 				displayMatrix("BOTH");
 			}        
 			else if((DLSensor > hasLeftWall))//only has left wall
 			{
+				
 				displayMatrix("LWAL");
 			}
 			else if((DRSensor > hasRightWall))//only has right wall
@@ -1178,6 +1183,7 @@ int main(void) {
 			{
 				displayMatrix("NONE");
 			}		
+			//forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
 			delay_ms(500);
 			
 			
