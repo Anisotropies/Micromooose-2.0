@@ -27,19 +27,21 @@ Project File Date:  05/08/2015
 <h2>Output:</h2>
 Build target 'Target 1'
 compiling main.c...
-..\user\main.c(254): warning:  #223-D: function "abs" declared implicitly
+..\user\main.c(258): warning:  #223-D: function "abs" declared implicitly
                   c_array[i][j].m_distance = abs(xMid - i) + abs(yMid - j);
-..\user\main.c(260): warning:  #223-D: function "abs" declared implicitly
+..\user\main.c(264): warning:  #223-D: function "abs" declared implicitly
                   c_array[i][j].m_distance = abs(xMid - i) - 1 + abs(yMid - j);
-..\user\main.c(266): warning:  #223-D: function "abs" declared implicitly
+..\user\main.c(270): warning:  #223-D: function "abs" declared implicitly
                   c_array[i][j].m_distance = abs(xMid - i) + abs(yMid - j) - 2;
-..\user\main.c(273): warning:  #223-D: function "abs" declared implicitly
+..\user\main.c(277): warning:  #223-D: function "abs" declared implicitly
                   c_array[i][j].m_distance = abs(xMid - i) + abs(yMid - j) - 1;
-..\user\main.c: 4 warnings, 0 errors
+..\user\main.c(649): warning:  #111-D: statement is unreachable
+                                        delay_ms(5000);
+..\user\main.c: 5 warnings, 0 errors
 linking...
-Program Size: Code=27916 RO-data=1700 RW-data=240 ZI-data=10600  
+Program Size: Code=27912 RO-data=1700 RW-data=248 ZI-data=10600  
 FromELF: creating hex file...
-"..\obj\micromouse_test.axf" - 0 Error(s), 4 Warning(s).
+"..\obj\micromouse_test.axf" - 0 Error(s), 5 Warning(s).
 </pre>
 </body>
 </html>
