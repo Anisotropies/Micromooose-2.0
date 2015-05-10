@@ -46,8 +46,8 @@ struct Coord {
 //CONSTANTS
 int32_t hasLeftWall = 325;
 int32_t hasRightWall = 714;  
-int32_t hasFrontWallLeft = 3000; 
-int32_t hasFrontWallRight = 3000; 
+int32_t hasFrontWallLeft = 500; 
+int32_t hasFrontWallRight = 500; 
 int32_t leftMiddleValue = 0;//1765;
 int32_t rightMiddleValue = 0;//98;
 
@@ -73,6 +73,7 @@ int32_t oldErrorP = 0;
 //ENCODER CONSTANTS VARIABLES
 int rightEncoderDeltaCell = 5000;
 int leftEncoderDeltaCell = 4400;
+int leftEncoderDeltaCellInit = 1800;
 int targetLeft = 0;
 int targetRight = 0;
 const int LEFT = 1;
@@ -91,8 +92,8 @@ bool visitedStart = false;
 enum Dir heading;
 bool shouldGoForward;
 bool shouldGoToCenter = true;
-int x = 0;
-int y = 0;
+int x = 0; 
+int y = 1;
 
 const int MAZE_W = 16;
 const int MAZE_L = 16;
@@ -330,6 +331,8 @@ void floodFill(int xPos, int yPos) {
 	
 		int i = 0;
 		int shortest = 500;
+		
+		printf("Running FloodFill!\r\n");
 	
 		push(c_array[xPos][yPos]);
 		while (!stempty())
@@ -511,6 +514,7 @@ int nextMovement() {
 		{
 				if (heading == NORTH)
 				{
+					shortBeep(500, 1000);
 						setH(x, y);
 				}
 				else if (heading == SOUTH)
@@ -736,7 +740,7 @@ void PID(void)
 void stop(int time)
 {
 
-	//displayMatrix("STOP");
+	displayMatrix("STOP");
 
 	targetLeft = 0;
 
@@ -850,7 +854,7 @@ void button2_interrupt(void) {
 
 
 int main(void) {
-
+	
 	int runSpeed = 50;
 	int i;
 	int j;
@@ -886,13 +890,20 @@ int main(void) {
 
 	//forwardDistance(200, runSpeed, runSpeed, true);
 	
-	//stop(100);
+	stop(100);
 	mouseStarted = 1;
 	printf("Starting run\r\n");
+	
+	/////////test///////////
+	setV(0,0);
+	forwardDistance(leftEncoderDeltaCellInit, runSpeed, runSpeed, false);
+	stop(100);
+	//////////////////
 while(1) {	
 	//while (RFSensor < hasFrontWallLeft || LFSensor < hasFrontWallRigh t) {		
-		
 	
+
+	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	switch(heading) {
 			case NORTH:
@@ -911,42 +922,42 @@ while(1) {
 			default:
 				break;
 			}	
-	
+	/*
 	printf("X: %d Y: %d\r\n",x, y); 
 	printf("hasRightWall: %d RightSensorValue: %d\r\n",hasRightWall, DRSensor);
 	printf("hasLeftWall: %d LeftSensorValue: %d\r\n",hasLeftWall, DLSensor);
 	printf("hasFrontWall: %d LeftSensorValue: %d\r\n",hasFrontWallLeft, LFSensor);
 	printf("hasFrontWall: %d RightSensorValue: %d\r\n",hasFrontWallRight, RFSensor);
 	
-	
+	*/
 	
 		//Set the direction to turn
-		printf("Looking ahead: ");
+		//printf("Looking ahead: ");
 		if((DLSensor > hasLeftWall)) {
-			printf("Left Wall\t");
+			//printf("Left Wall\t");
 			leftWall = true;
 		} else {
-			printf("NO Left Wall\t");
+			//printf("NO Left Wall\t");
 			leftWall = false;
 		}
 				
 		if((DRSensor > hasRightWall)) {
-			printf("Right Wall\t");
+			//printf("Right Wall\t");
 			rightWall = true;
 		} else {
-			printf("NO Right Wall\t");
+			//printf("NO Right Wall\t");
 			rightWall = false;
 		}
 				
 		if((LFSensor > hasFrontWallLeft || RFSensor > hasFrontWallRight)) {
-			printf("Front Wall\r\n");
+			//printf("Front Wall\r\n");
 			frontWall = true;
 		} else {
-			printf("NO Front Wall\r\n");
+			//printf("NO Front Wall\r\n");
 			frontWall = false;
 		}
 		i = nextMovement();
-		printf("Next Movement is %d\r\n*********************************\r\n", i);
+		//printf("Next Movement is %d\r\n*********************************\r\n", i);
 		switch (i) {
 			case MoveForward: 
 				switch(heading) {
@@ -967,7 +978,7 @@ while(1) {
 					break;
 			}
 			displayMatrix("FWD");
-			forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, false);
+			forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
 			break;
 								
 			case TurnClockwise:
@@ -990,12 +1001,12 @@ while(1) {
 							break;
 						}	
 					displayMatrix("RIGT");
-					forwardDistance(400, runSpeed, runSpeed, false);
+					forwardDistance(2600, runSpeed, runSpeed, false);
 					turnDegrees(14000, RIGHT, 50);
-					forwardDistance(400, runSpeed, runSpeed, false);
+					forwardDistance(1600, runSpeed, runSpeed, false);
 					break;
 					
-					case TurnCounterClockwise:
+			case TurnCounterClockwise:
 						switch(heading) {
 							case NORTH:
 								//y++;
@@ -1020,16 +1031,17 @@ while(1) {
 						forwardDistance(400, runSpeed, runSpeed, false);
 						break;
 
-					case TurnAround:
+			case TurnAround:
 					displayMatrix("BACK");
 					turnDegrees(30000, LEFT, 50);
 					
 						break; 
 				}
+		displayMatrix("REAC");
 				
 				stop(100);
 				//displayMatrix("PRNT");
-				/*Print out Manhattan Distances*/
+				//Print out Manhattan Distances
 				for (i = 15; i >= 0; i--) {
 					for (j = 0; j < 16; j++) {
 						
@@ -1037,7 +1049,7 @@ while(1) {
 					}
 					printf("\r\n");
 				}
-				/*Print out walls*/
+				//Print out walls
 				for (i = 15; i >= 0; i--) {
 					for (j = 0; j < 16; j++) {
 						printf("*");
@@ -1059,7 +1071,7 @@ while(1) {
 					printf("\r\n");
 				}
 				printf("\r\n\r\n");
-			readSensor();
+			/*readSensor();
 			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
 			{
 				displayMatrix("BOTH");
@@ -1076,12 +1088,13 @@ while(1) {
 			else if((DLSensor < hasLeftWall && DRSensor <hasRightWall))//no wall, use encoder or gyro
 			{
 				displayMatrix("NONE");
-			}		
+			}	*/	
 				stop(1000);
 				
 				
-				printf("=================================\n=================================\r\n\r\n");
-
+				//printf("=================================\n=================================\r\n\r\n");
+			
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 			/*
 			//readSensor();
 			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
@@ -1140,10 +1153,11 @@ while(1) {
 				break;
 			}
 		}*/
+			////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	}
 while(1) {
 			readSensor();
-	shortBeep(100, 5000);
+	//shortBeep(100, 5000);
 			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
 			{
 				displayMatrix("BOTH");
