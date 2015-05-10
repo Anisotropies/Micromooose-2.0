@@ -35,15 +35,17 @@ compiling main.c...
                   c_array[i][j].m_distance = abs(xMid - i) + abs(yMid - j) - 2;
 ..\user\main.c(278): warning:  #223-D: function "abs" declared implicitly
                   c_array[i][j].m_distance = abs(xMid - i) + abs(yMid - j) - 1;
-..\user\main.c(674): warning:  #111-D: statement is unreachable
+..\user\main.c(676): warning:  #111-D: statement is unreachable
                                         delay_ms(5000);
-..\user\main.c(1158): warning:  #128-D: loop is not reachable
+..\user\main.c(1203): warning:  #128-D: loop is not reachable
   while(1) {
-..\user\main.c: 6 warnings, 0 errors
+..\user\main.c(886): warning:  #177-D: variable "j" was declared but never referenced
+        int j;
+..\user\main.c: 7 warnings, 0 errors
 linking...
-Program Size: Code=28788 RO-data=1700 RW-data=252 ZI-data=10596  
+Program Size: Code=28556 RO-data=1700 RW-data=252 ZI-data=10596  
 FromELF: creating hex file...
-"..\obj\micromouse_test.axf" - 0 Error(s), 6 Warning(s).
+"..\obj\micromouse_test.axf" - 0 Error(s), 7 Warning(s).
 </pre>
 </body>
 </html>

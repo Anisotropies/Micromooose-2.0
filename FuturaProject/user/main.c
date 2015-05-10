@@ -46,13 +46,13 @@ struct Coord {
 //CONSTANTS
 int32_t hasLeftWall = 325;
 int32_t hasRightWall = 714;  
-int32_t hasFrontWallLeft = 500; 
-int32_t hasFrontWallRight = 500; 
+int32_t hasFrontWallLeft = 400; 
+int32_t hasFrontWallRight = 400; 
 int32_t leftMiddleValue = 0;//1765;
 int32_t rightMiddleValue = 0;//98;
 
-const int xGOAL = 2;
-const int yGOAL = 3;
+const int xGOAL = 7;
+const int yGOAL = 7;
 
 double P = 0.01;
 double D = 0.09;
@@ -72,8 +72,8 @@ int32_t oldErrorP = 0;
 
 //ENCODER CONSTANTS VARIABLES
 int rightEncoderDeltaCell = 5000;
-int leftEncoderDeltaCell = 4400;
-int leftEncoderDeltaCellInit = 1800;
+int leftEncoderDeltaCell = 4500;
+int leftEncoderDeltaCellInit = 2000;
 int targetLeft = 0;
 int targetRight = 0;
 const int LEFT = 1;
@@ -328,10 +328,10 @@ bool isWallBetween(struct Coord pos1, struct Coord pos2)
 void floodFill(int xPos, int yPos) {
 	
 		//struct stack StackTemp;
-	
+		
 		int i = 0;
 		int shortest = 500;
-		
+		//shortBeep(500, 1000);
 		printf("Running FloodFill!\r\n");
 	
 		push(c_array[xPos][yPos]);
@@ -467,21 +467,21 @@ int nextMovement() {
 		if (leftWall) {
 				if (heading == NORTH) {
 						if (x != 0){
-								setV(x - 1, y+1);
+								setV(x - 1, y);
 						}
 				}
 				else if (heading == SOUTH) {
-						setV(x, y-1);
+						setV(x, y);
 						 
 				}
 				else if (heading == WEST) {
 						if (y != 0){
-								setH(x - 1, y - 1);
+								setH(x, y - 1);
 						}
 						 
 				}
 				else if (heading == EAST) {
-						setH(x+1, y);
+						setH(x, y);
 				}
 		}
 		 
@@ -493,17 +493,17 @@ int nextMovement() {
 				}
 				else if (heading == SOUTH) {
 						if (x != 0){
-								setV(x - 1, y+1);
+								setV(x - 1, y);
 						}
 						 
 				}
 				else if (heading == WEST) {
-						setH(x-1, y-1);
+						setH(x, y);
 						 
 				}
 				else if (heading == EAST) {
 						if (y != 0){
-								setH(x+1, y - 1);
+								setH(x, y - 1);
 						}
 						 
 				}
@@ -514,7 +514,6 @@ int nextMovement() {
 		{
 				if (heading == NORTH)
 				{
-					shortBeep(500, 1000);
 						setH(x, y);
 				}
 				else if (heading == SOUTH)
@@ -601,21 +600,23 @@ int nextMovement() {
 		 
 		 
 		//if (!frontWall) {
+		printf("Current Coordiantes: (%d, %d)\r\n", x, y);
+		printf("Current Manhattan: %d\r\n", c_array[x][y].m_distance);
 		if (((frontX <= 15 && frontY <= 15) && (frontX >= 0 && frontY > 0)) && !(isWallBetween(c_array[x][y], c_array[frontX][frontY])) && c_array[x][y].m_distance > c_array[frontX][frontY].m_distance)
 		{
 			//printf("Moving forward\r\n");
 				return MoveForward;
 		}
-		else if (((frontX <= 15 && frontY <= 15) && (frontX >= 0 && frontY > 0)) && !(isWallBetween(c_array[x][y], c_array[rightX][rightY])) && c_array[x][y].m_distance > c_array[rightX][rightY].m_distance)
+		else if (((rightX <= 15 && rightY <= 15) && (rightX >= 0 && rightY > 0)) && !(isWallBetween(c_array[x][y], c_array[rightX][rightY])) && c_array[x][y].m_distance > c_array[rightX][rightY].m_distance)
 		{
 			//printf("Turning right\r\n");
 			heading = clockwise(heading);
 			return TurnClockwise;	
 		}
-		 
-		else if (((frontX <= 15 && frontY <= 15) && (frontX >= 0 && frontY > 0)) && !(isWallBetween(c_array[x][y], c_array[leftX][leftY])) && c_array[x][y].m_distance > c_array[leftX][leftY].m_distance)
+		else if (((leftX <= 15 && leftY <= 15) && (leftX >= 0 && leftY > 0)) && !(isWallBetween(c_array[x][y], c_array[leftX][leftY])) && c_array[x][y].m_distance > c_array[leftX][leftY].m_distance)
 		{
 			//printf("Turning left\r\n");
+			//shortBeep(250, 5000);
 			heading = counterClockwise(heading);
 			return TurnCounterClockwise;
 		}
@@ -642,6 +643,7 @@ int nextMovement() {
 			//std::cout << "Running Floodfill" << std::endl;
 			displayMatrix("FILL");
 			floodFill(x, y);
+			
 			return nextMovement();
 		}
 		else
@@ -740,7 +742,7 @@ void PID(void)
 void stop(int time)
 {
 
-	displayMatrix("STOP");
+	//displayMatrix("STOP");
 
 	targetLeft = 0;
 
@@ -804,13 +806,21 @@ void turnDegrees(int degrees, int direction, int speed) {
 }
 
 void forwardTurn(int direction, int runSpeed) {
-	if (direction == RIGHT) ;
-		//displayMatrix("RIGT");
-	else ;
-		//displayMatrix("LEFT");
-	forwardDistance(4500, runSpeed, runSpeed, true);
+	if (direction == RIGHT) {
+					displayMatrix("RIGT");
+					forwardDistance(2600, runSpeed, runSpeed, false);
+		stop(250);
+					turnDegrees(14000, RIGHT, 50);
+		stop(250);
+					forwardDistance(1600, runSpeed, runSpeed, false);	
+	}
+	else {
+	forwardDistance(2600, runSpeed, runSpeed, false);
+		stop(250);
 	turnDegrees(14000, direction, 60);
-	forwardDistance(4500, runSpeed, runSpeed, false);
+		stop(250);
+	forwardDistance(1600, runSpeed, runSpeed, false);
+	}
 }
 
 
@@ -847,8 +857,24 @@ void button1_interrupt(void) {
 
 
 void button2_interrupt(void) {
-	forwardDistance(leftEncoderDeltaCell, 50, 50, true);
-	stop(100);
+	readSensor();
+			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
+			{
+				displayMatrix("BOTH");
+			}        
+			else if((DLSensor > hasLeftWall))//only has left wall
+			{
+				
+				displayMatrix("LWAL");
+			}
+			else if((DRSensor > hasRightWall))//only has right wall
+			{
+				displayMatrix("RWAL");
+			}
+			else if((DLSensor < hasLeftWall && DRSensor <hasRightWall))//no wall, use encoder or gyro
+			{
+				displayMatrix("NONE");
+			}
 }
 
 
@@ -898,11 +924,13 @@ int main(void) {
 	setV(0,0);
 	forwardDistance(leftEncoderDeltaCellInit, runSpeed, runSpeed, false);
 	stop(100);
+	
 	//////////////////
+	
 while(1) {	
 	//while (RFSensor < hasFrontWallLeft || LFSensor < hasFrontWallRigh t) {		
 	
-
+	/*displayMatrix("LOOP");
 	////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 	
 	switch(heading) {
@@ -921,7 +949,7 @@ while(1) {
 			case INVALID:
 			default:
 				break;
-			}	
+			}*/	
 	/*
 	printf("X: %d Y: %d\r\n",x, y); 
 	printf("hasRightWall: %d RightSensorValue: %d\r\n",hasRightWall, DRSensor);
@@ -933,6 +961,7 @@ while(1) {
 	
 		//Set the direction to turn
 		//printf("Looking ahead: ");
+			displayMatrix("HEAD");
 		if((DLSensor > hasLeftWall)) {
 			//printf("Left Wall\t");
 			leftWall = true;
@@ -956,7 +985,24 @@ while(1) {
 			//printf("NO Front Wall\r\n");
 			frontWall = false;
 		}
-		i = nextMovement();
+		displayMatrix("NEXT");
+		if (leftWall && rightWall && !frontWall) {
+			forwardDistance(leftEncoderDeltaCell, runSpeed, runSpeed, true);
+		}
+		else if (leftWall && !rightWall) {
+			forwardTurn(RIGHT, 50);
+		}
+		else if (rightWall && !leftWall) {
+			forwardTurn(LEFT, 50);
+		}
+		else if (leftWall && rightWall && frontWall) {
+			turnDegrees(30000, LEFT, 50);
+		}
+		else if (frontWall) {
+			forwardTurn(LEFT, 50);
+		}
+		//stop(500);
+		/*i = nextMovement();
 		//printf("Next Movement is %d\r\n*********************************\r\n", i);
 		switch (i) {
 			case MoveForward: 
@@ -985,61 +1031,60 @@ while(1) {
 						
 						switch(heading) {
 							case NORTH:
-								//y++;
+								y++;
 								break;
 						case SOUTH:
-								//y--;
+								y--;
 								break;
 						case EAST:
-								//x++;
+								x++;
 								break;
 						case WEST:
-								//x--;
+								x--;
 								break;
 						case INVALID:
 						default:
 							break;
 						}	
-					displayMatrix("RIGT");
-					forwardDistance(2600, runSpeed, runSpeed, false);
-					turnDegrees(14000, RIGHT, 50);
-					forwardDistance(1600, runSpeed, runSpeed, false);
+					turning = 1;
+					forwardTurn(RIGHT, runSpeed);
+						stop(250);
 					break;
 					
 			case TurnCounterClockwise:
 						switch(heading) {
 							case NORTH:
-								//y++;
+								y++;
 								break;
 						case SOUTH:
-								//y--;
+								y--;
 								break;
 						case EAST:
-								//x++;
+								x++;
 								break;
 						case WEST:
-								//x--;
+								x--;
 								break;
 						case INVALID:
 						default:
 							break;
 						}	
 						
-						displayMatrix("LEFT");
-						forwardDistance(400, runSpeed, runSpeed, false);
-						turnDegrees(14000, LEFT, 50);
-						forwardDistance(400, runSpeed, runSpeed, false);
+						turning = 1;
+						forwardTurn(LEFT, runSpeed);
+						
 						break;
 
 			case TurnAround:
 					displayMatrix("BACK");
-					turnDegrees(30000, LEFT, 50);
+					turnDegrees(34000, LEFT, 50);
 					
 						break; 
 				}
-		displayMatrix("REAC");
+		stop(500);
+		displayMatrix("REAC");*/
 				
-				stop(100);
+		/*		stop(100);
 				//displayMatrix("PRNT");
 				//Print out Manhattan Distances
 				for (i = 15; i >= 0; i--) {
@@ -1071,7 +1116,7 @@ while(1) {
 					printf("\r\n");
 				}
 				printf("\r\n\r\n");
-			/*readSensor();
+			readSensor();
 			if((DLSensor > hasLeftWall) && (DRSensor > hasRightWall))//has both walls
 			{
 				displayMatrix("BOTH");
@@ -1088,8 +1133,8 @@ while(1) {
 			else if((DLSensor < hasLeftWall && DRSensor <hasRightWall))//no wall, use encoder or gyro
 			{
 				displayMatrix("NONE");
-			}	*/	
-				stop(1000);
+			}		*/
+			//stop(1000);
 				
 				
 				//printf("=================================\n=================================\r\n\r\n");
