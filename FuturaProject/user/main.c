@@ -16,7 +16,7 @@
 #include <cstring>
 
 
-///////////////////////////
+ ///////////////////////////
 //Floodfill//////////////////
 ///////////////////////////
 
@@ -900,15 +900,12 @@ while(1) {
 					break;
 			case SOUTH:
 				printf("Current Heading: South");
-					//y--;
 					break;
 			case EAST:
 				printf("Current Heading: East");
-					//x++;
 					break;
 			case WEST:
 				printf("Current Heading: West");
-					//x--;
 					break;
 			case INVALID:
 			default:
@@ -993,7 +990,9 @@ while(1) {
 							break;
 						}	
 					displayMatrix("RIGT");
+					forwardDistance(400, runSpeed, runSpeed, false);
 					turnDegrees(14000, RIGHT, 50);
+					forwardDistance(400, runSpeed, runSpeed, false);
 					break;
 					
 					case TurnCounterClockwise:
@@ -1016,12 +1015,14 @@ while(1) {
 						}	
 						
 						displayMatrix("LEFT");
+						forwardDistance(400, runSpeed, runSpeed, false);
 						turnDegrees(14000, LEFT, 50);
+						forwardDistance(400, runSpeed, runSpeed, false);
 						break;
 
 					case TurnAround:
 					displayMatrix("BACK");
-						turnDegrees(30000, LEFT, 50);
+					turnDegrees(30000, LEFT, 50);
 					
 						break; 
 				}
